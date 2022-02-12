@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using DotnetWebApi.Models;
 using DotnetWebApi.Services;
 using DotnetWebApi.Dtos.Characters;
-
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 namespace DotnetWebApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CharacterController : ControllerBase
@@ -23,7 +25,8 @@ namespace DotnetWebApi.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _characterService.GetAllCharacters());
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(await _characterService.GetAllCharacters(userId));
         }
 
         [HttpGet("{id}")]

@@ -11,6 +11,7 @@ namespace DotnetWebApi.Data
             
         }
 
-        DbSet<Character> Characters {get; set;}
+        public DbSet<Character> Characters {get; set;}
+        public DbSet<User> Users { get; set; }
     }
 }

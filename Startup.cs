@@ -17,6 +17,7 @@ using DotnetWebApi.Services;
 using AutoMapper;
 using DotnetWebApi.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 
 namespace DotnetWebApi
 {
@@ -49,6 +50,7 @@ namespace DotnetWebApi
                     ValidateAudience = false
                 };
             });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DotnetWebApi", Version = "v1" });
